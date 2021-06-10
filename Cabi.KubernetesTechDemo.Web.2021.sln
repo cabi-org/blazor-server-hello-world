@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31321.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cabi.KubernetesTechDemo.Web", "Cabi.KubernetesTechDemo.Web\Cabi.KubernetesTechDemo.Web.csproj", "{77D7B91F-45D3-47A9-9513-613A0015EBA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cabi.KubernetesTechDemo.Web.Tests", "Cabi.KubernetesTechDemo.Web.Tests\Cabi.KubernetesTechDemo.Web.Tests.csproj", "{8AAE2434-C053-4AD4-B3B1-3C76B7E1F554}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{77D7B91F-45D3-47A9-9513-613A0015EBA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77D7B91F-45D3-47A9-9513-613A0015EBA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77D7B91F-45D3-47A9-9513-613A0015EBA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77D7B91F-45D3-47A9-9513-613A0015EBA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AAE2434-C053-4AD4-B3B1-3C76B7E1F554}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AAE2434-C053-4AD4-B3B1-3C76B7E1F554}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AAE2434-C053-4AD4-B3B1-3C76B7E1F554}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AAE2434-C053-4AD4-B3B1-3C76B7E1F554}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8857F606-D22C-4823-9740-DE2DA50D8E48}
+	EndGlobalSection
+EndGlobal

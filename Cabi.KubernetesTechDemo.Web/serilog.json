@@ -1,0 +1,23 @@
+{
+  "Serilog": {
+    "Using": [],
+    "MinimumLevel": {
+      "Default": "Information",
+      "Override": {
+        "Microsoft": "Warning",
+        "System": "Warning"
+      }
+    },
+    "Enrich": [ "FromLogContext", "WithMachineName", "WithProcessId", "WithThreadId", "WithVersionNumber", "WithDeploymentEnvironment" ],
+    "WriteTo": [
+      { "Name": "Console" },
+      {
+        "Name": "Seq",
+        "Args": {
+          "serverUrl": "http://host.docker.internal:5341",
+          "apiKey": "LocalMachine"
+        }
+      }
+    ]
+  }
+}
