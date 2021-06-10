@@ -7,6 +7,7 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
+COPY ["nuget.config", "."]
 COPY ["Cabi.KubernetesTechDemo.Web/Cabi.KubernetesTechDemo.Web.csproj", "Cabi.KubernetesTechDemo.Web/"]
 RUN dotnet restore "Cabi.KubernetesTechDemo.Web/Cabi.KubernetesTechDemo.Web.csproj"
 COPY . .

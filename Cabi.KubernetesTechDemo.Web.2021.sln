@@ -5,7 +5,12 @@ VisualStudioVersion = 16.0.31321.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cabi.KubernetesTechDemo.Web", "Cabi.KubernetesTechDemo.Web\Cabi.KubernetesTechDemo.Web.csproj", "{77D7B91F-45D3-47A9-9513-613A0015EBA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cabi.KubernetesTechDemo.Web.Tests", "Cabi.KubernetesTechDemo.Web.Tests\Cabi.KubernetesTechDemo.Web.Tests.csproj", "{8AAE2434-C053-4AD4-B3B1-3C76B7E1F554}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cabi.KubernetesTechDemo.Web.Tests", "Cabi.KubernetesTechDemo.Web.Tests\Cabi.KubernetesTechDemo.Web.Tests.csproj", "{8AAE2434-C053-4AD4-B3B1-3C76B7E1F554}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution Files", "{E47F9E83-2B6E-4F92-AE19-5752D4AEC33F}"
+	ProjectSection(SolutionItems) = preProject
+		nuget.config = nuget.config
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
