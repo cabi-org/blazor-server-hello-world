@@ -1,10 +1,28 @@
 ﻿@page "/throwerror"
+@using System.IO
+@using Microsoft.Extensions.Logging
+@inject ILogger<ThrowError> logger;
 
 <h1>Throw Error</h1>
 
-<button class="btn btn-primary" @onclick="ThrowAnError">Make it fail</button>
+<button class="btn btn-danger" @onclick="ThrowAnError">Make it fail</button>
+
+<button class="btn btn-info" @onclick="LogInformation">Log some information</button>
+
+<button class="btn btn-warning" @onclick="BreakHealthCheck">Make me sick!</button>
 
 @code {
+
+    private void BreakHealthCheck()
+    {
+        File.Delete(Path.Combine(Directory.GetCurrentDirectory(), "KeepSiteAlive.txt"));
+    }
+
+    private void LogInformation()
+    {
+        logger.LogInformation("Some information that is just for reference");
+    }
+
     private void ThrowAnError()
     {
         throw new Exception("Deliberately throwing an exception!");

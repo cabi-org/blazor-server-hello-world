@@ -19,11 +19,6 @@ namespace Cabi.KubernetesTechDemo.Web.Data
             _configuration = configuration;
         }
 
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
         public async Task<WeatherForecast[]> GetForecastAsync(DateTime startDate)
         {
             using HttpClient client = new HttpClient();

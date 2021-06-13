@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -32,7 +33,7 @@ namespace Cabi.KubernetesTechDemo.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHealthChecks()
-                .AddCheck("Test", () => HealthCheckResult.Healthy("All is OK"), new[] { "kubernetes" });
+                .AddCheck("File Check", () => { return File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "KeepSiteAlive.txt")) ? HealthCheckResult.Healthy() : HealthCheckResult.Unhealthy(); });
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
