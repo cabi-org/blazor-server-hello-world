@@ -1,15 +1,17 @@
-﻿@page "/throwerror"
+﻿@page "/breakthings"
 @using System.IO
 @using Microsoft.Extensions.Logging
-@inject ILogger<ThrowError> logger;
+@inject ILogger<BreakThings> logger;
 
-<h1>Throw Error</h1>
+<h1>Break Things!</h1>
 
 <button class="btn btn-danger" @onclick="ThrowAnError">Make it fail</button>
 
+<button class="btn btn-warning" @onclick="LogWarning">Log a warning</button>
+
 <button class="btn btn-info" @onclick="LogInformation">Log some information</button>
 
-<button class="btn btn-warning" @onclick="BreakHealthCheck">Make me sick!</button>
+<button class="btn btn-dark" @onclick="BreakHealthCheck">Make me sick!</button>
 
 @code {
 
@@ -21,6 +23,11 @@
     private void LogInformation()
     {
         logger.LogInformation("Some information that is just for reference");
+    }
+
+    private void LogWarning()
+    {
+        logger.LogWarning("This is just a warning and isn't fatal");
     }
 
     private void ThrowAnError()

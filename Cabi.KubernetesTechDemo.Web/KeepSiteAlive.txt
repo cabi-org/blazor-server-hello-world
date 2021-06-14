@@ -1,1 +1,1 @@
-﻿When deleted, this site fails it's health check
+﻿When deleted, the health check will fail!

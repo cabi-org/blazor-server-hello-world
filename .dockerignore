@@ -16,6 +16,7 @@
 **/charts
 **/docker-compose*
 **/Dockerfile*
+**/healthchecksdb
 **/node_modules
 **/npm-debug.log
 **/obj

@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
@@ -32,11 +33,28 @@ namespace Cabi.KubernetesTechDemo.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHealthChecksUI().AddSqliteStorage("Data Source = healthchecksdb");
+
             services.AddHealthChecks()
-                .AddCheck("File Check", () => { return File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "KeepSiteAlive.txt")) ? HealthCheckResult.Healthy() : HealthCheckResult.Unhealthy(); });
+                .AddCheck("File Check", () => { return File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "KeepSiteAlive.txt")) ? HealthCheckResult.Healthy() : HealthCheckResult.Unhealthy(); },
+                    new[] {"kubernetes"})
+                .AddUrlGroup(new Uri($"https://{Configuration.GetValue<string>("CabiUrls:MySandbox")}/api/weatherforecast"), "Weather API Available", HealthStatus.Degraded);
+
+            services.AddHealthChecksUI(setup =>
+            {
+                string basePath = "";
+                if (!Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT").Equals("Development"))
+                {
+                    basePath = "http://localhost";
+                }
+
+                setup.AddHealthCheckEndpoint("Main", $"{basePath}/health");
+                setup.AddHealthCheckEndpoint("Kubernetes", $"{basePath}/health/kubernetes");
+            });
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
+
             services.AddSingleton<WeatherForecastService>();
         }
 
@@ -62,9 +80,11 @@ namespace Cabi.KubernetesTechDemo.Web
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapBlazorHub();
-                endpoints.MapFallbackToPage("/_Host");
+                {
+                    endpoints.MapBlazorHub();
+                    endpoints.MapFallbackToPage("/_Host");
+
+                    endpoints.MapHealthChecksUI(); //(setup => setup.UIPath = "/health/ui");
 
                 endpoints.MapHealthChecks("/health", new HealthCheckOptions()
                 {
@@ -73,7 +93,8 @@ namespace Cabi.KubernetesTechDemo.Web
                         [HealthStatus.Healthy] = StatusCodes.Status200OK,
                         [HealthStatus.Degraded] = StatusCodes.Status200OK,
                         [HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable
-                    }
+                    },
+                    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
                 });
 
                 endpoints.MapHealthChecks("/health/kubernetes", new HealthCheckOptions()
@@ -84,9 +105,12 @@ namespace Cabi.KubernetesTechDemo.Web
                         [HealthStatus.Degraded] = StatusCodes.Status200OK,
                         [HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable
                     },
-                    Predicate = (check) => check.Tags.Contains("kubernetes")
+                    Predicate = (check) => check.Tags.Contains("kubernetes"),
+                    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
                 });
             });
+
+            app.UseHealthChecksUI();
         }
 
         private bool IsHealthCheckEndpoint(HttpContext ctx)
@@ -97,6 +121,9 @@ namespace Cabi.KubernetesTechDemo.Web
                 return string.Equals(
                     endpoint.DisplayName,
                     "Health checks",
+                    StringComparison.Ordinal)  || string.Equals(
+                    endpoint.DisplayName,
+                    "HealthChecks UI Api",
                     StringComparison.Ordinal);
             }
 
