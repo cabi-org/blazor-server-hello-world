@@ -1,0 +1,30 @@
+﻿@page "/problempage"
+
+<h1>Problem Page</h1>
+
+<p>This page is set up to break when the random number generator returns a 3.</p>
+
+<p>Last number: @lastNumber - @(isAWinner ? "WINNER!" : "Sorry, not this time!")</p>
+
+<button class="btn btn-primary" @onclick="CheckNumber">Generate Number</button>
+
+@code {
+    private int lastNumber = 0;
+    private bool isAWinner = false;
+    private string winningNumberSetting = Environment.GetEnvironmentVariable("WINNING_NUMBER");
+    private int winningNumber = 0;
+
+    private void CheckNumber()
+    {
+        if (winningNumber == 0)
+        {
+            if (!int.TryParse(winningNumberSetting, out winningNumber))
+            {
+                winningNumber = 3;
+            }
+        }
+
+        lastNumber = new Random().Next(1, 10);
+        isAWinner = (lastNumber == winningNumber);
+    }
+}
