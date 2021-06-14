@@ -3,10 +3,10 @@
 
 <h1>Extra Details</h1>
 
-<p>This device is running on @podName</p>
-<p>@(fileContents == null ? "Generating shared data..." : fileContents)</p>
+<p>The name of the pod you are connected to is @podName</p>
+<p>The (potentially) shared contents file value is @(fileContents == null ? "Generating shared data..." : fileContents)</p>
 
-<p>Keep refreshing to spot the page switch.</p>
+<p>Keep refreshing the page to test.</p>
 
 @code {
     private string podName = Environment.MachineName;
