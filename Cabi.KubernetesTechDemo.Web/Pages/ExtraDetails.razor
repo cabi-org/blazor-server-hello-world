@@ -1,0 +1,35 @@
+﻿@page "/extras"
+@using System.IO
+
+<h1>Extra Details</h1>
+
+<p>This device is running on @podName</p>
+<p>@(fileContents == null ? "Generating shared data..." : fileContents)</p>
+
+<p>Keep refreshing to spot the page switch.</p>
+
+@code {
+    private string podName = Environment.MachineName;
+    private string fileContents = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        string directoryPath = Path.Combine(Environment.CurrentDirectory, "shared");
+        if (!Directory.Exists(directoryPath))
+        {
+            Directory.CreateDirectory(directoryPath);
+        }
+
+        string filePath = Path.Combine(directoryPath, "sharedfile.txt");
+        if (File.Exists(filePath))
+        {
+            fileContents = File.ReadAllText(filePath);
+        }
+        else
+        {
+            fileContents = Guid.NewGuid().ToString();
+            File.WriteAllText(filePath, fileContents);
+        }
+    }
+
+}
