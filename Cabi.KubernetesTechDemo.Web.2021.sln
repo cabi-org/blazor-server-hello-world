@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cabi.KubernetesTechDemo.Web
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution Files", "{E47F9E83-2B6E-4F92-AE19-5752D4AEC33F}"
 	ProjectSection(SolutionItems) = preProject
-		nuget1.config = nuget1.config
+		nuget.config = nuget.config
 	EndProjectSection
 EndProject
 Global
